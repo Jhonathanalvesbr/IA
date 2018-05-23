@@ -11,8 +11,9 @@ struct individuo
 	int cromossomo[T]; //Em binario Tamanho 5
 	int fitness; //Aptdao
 	int decimal; //Numero decimal
-	int posicaoMultacao; //Posicao da multacao
-	int antesDaMultacao[T]; //Antes da multacao em binario
+	int posicaoMultacao;
+	int antesDaMultacao[T];
+	int antesDecimal;
 };
 
 typedef struct individuo Individuo;
@@ -30,12 +31,24 @@ int random (int ateOndeGerar)
 	return (rand() % ateOndeGerar);
 }
 
+int converterParaDecimal( const int * bin )
+{
+    int n = 0;
+    int i = 0;
+    int nbits = 5;
+
+    for( i = 0; i < nbits; i++ )
+        n += ( bin[ nbits - i - 1 ] == 1 ) ? (1 << i) : 0;
+    return n;
+}
+
 Individuo multar (Individuo individuo) //Funcao para multar BIT, Multar individuo
 {
 	int r = random(T);
 	
 	individuo.posicaoMultacao = r;
-		
+	individuo.antesDecimal = converterParaDecimal(individuo.cromossomo);
+	
 	for(int x = 0; x < T; x++)
 	{
 		individuo.antesDaMultacao[x] = individuo.cromossomo[x];
@@ -53,17 +66,6 @@ Individuo multar (Individuo individuo) //Funcao para multar BIT, Multar individu
 	return individuo;
 }
 
-int converterParaDecimal( const int * bin ) //Conversao para decimal
-{
-    int n = 0;
-    int i = 0;
-    int nbits = 5;
-
-    for( i = 0; i < nbits; i++ )
-        n += ( bin[ nbits - i - 1 ] == 1 ) ? (1 << i) : 0;
-    return n;
-}
-
 
 int main ()
 {
@@ -72,7 +74,7 @@ int main ()
 	Individuo individuo[T];
 	int r = 0;
 	
-	for(int i = 0; i < P; i++) // Inicia Populacao
+	for(int i = 0; i < P; i++)
 	{
 		for(int x = 0; x < T; x++) // Criar individuo
 		{
@@ -83,9 +85,9 @@ int main ()
 		
 		individuo[i].posicaoMultacao = NULL;
 		
-		if(r == 1) //Multar individuo
+		if(r == 1)
 		{
-			individuo[i] = multar(individuo[i]); 
+			individuo[i] = multar(individuo[i]); //Multar individuo
 		}
 		
 		individuo[i].decimal = converterParaDecimal(individuo[i].cromossomo);
@@ -108,7 +110,7 @@ int main ()
 			{
 				printf("%i", individuo[i].antesDaMultacao[x]);
 			}
-			printf("<-Anterior Decimal: %i", converterParaDecimal(individuo[i].antesDaMultacao));
+			printf("<-Anterior Decimal: %i", individuo[i].antesDecimal);
 		}
 		puts("");
 	}
