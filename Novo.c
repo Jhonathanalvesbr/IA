@@ -11,8 +11,8 @@ struct individuo
 	int cromossomo[T]; //Em binario Tamanho 5
 	int fitness; //Aptdao
 	int decimal; //Numero decimal
-	int posicaoMultacao;
-	int antesDaMultacao[T];
+	int posicaoMultacao; //Posicao da multacao
+	int antesDaMultacao[T]; //Antes da multacao em binario
 };
 
 typedef struct individuo Individuo;
@@ -53,7 +53,7 @@ Individuo multar (Individuo individuo) //Funcao para multar BIT, Multar individu
 	return individuo;
 }
 
-int converterParaDecimal( const int * bin )
+int converterParaDecimal( const int * bin ) //Conversao para decimal
 {
     int n = 0;
     int i = 0;
@@ -72,7 +72,7 @@ int main ()
 	Individuo individuo[T];
 	int r = 0;
 	
-	for(int i = 0; i < P; i++)
+	for(int i = 0; i < P; i++) // Inicia Populacao
 	{
 		for(int x = 0; x < T; x++) // Criar individuo
 		{
@@ -83,9 +83,9 @@ int main ()
 		
 		individuo[i].posicaoMultacao = NULL;
 		
-		if(r == 1)
+		if(r == 1) //Multar individuo
 		{
-			individuo[i] = multar(individuo[i]); //Multar individuo
+			individuo[i] = multar(individuo[i]); 
 		}
 		
 		individuo[i].decimal = converterParaDecimal(individuo[i].cromossomo);
