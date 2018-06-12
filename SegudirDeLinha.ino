@@ -1,5 +1,3 @@
-#include <Time.h>
-
 //Declara Variavel do Motor
 int motor_d_f = 10;
 int motor_d_t = 9;
@@ -82,20 +80,25 @@ void parar()
 }
 
 
-void setup() {
-  for (int x=7; x<11; x++){
+void setup() 
+{
+  for (int x=7; x<11; x++)
+  {
     pinMode (x, OUTPUT);
   }
+  
   pinMode (sensor_e, INPUT);
   pinMode (sensor_c, INPUT);
   pinMode (sensor_d, INPUT);  
+  
   pinMode (vele, OUTPUT);
   pinMode (veld, OUTPUT);
+  
   Serial.begin (9600);
-  
 }
-void loop() {
-  
+
+void loop() 
+{
   while(digitalRead(sensor_c) == HIGH) //Linha Reta
   {
     reto();
@@ -105,7 +108,6 @@ void loop() {
   
   while(obstaculo == LOW) //Procura Direta , Esquerda
   {
-    
     minimo();
         
     Serial.println("Procurando..");
