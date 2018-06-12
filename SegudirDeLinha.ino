@@ -1,10 +1,12 @@
 #include <Time.h>
 
+//Declara Variavel do Motor
 int motor_d_f = 10;
 int motor_d_t = 9;
 int motor_e_t = 8;
 int motor_e_f = 7;
 
+//Declara Variavel do Sensor Velocidade
 int vele = 11;
 int veld = 6; 
 
@@ -18,7 +20,7 @@ int curva_esquerda2 = 150;
 int minimo1 = 150;
 int minimo2 = 150; 
 
-
+//Declara Sensores
 int sensor_d = A2;
 int sensor_e = A1;
 int sensor_c = A0;
@@ -26,6 +28,7 @@ int sensor_c = A0;
 
 bool obstaculo = HIGH;
 
+//Segue linha reta
 void reto()
 {
   
@@ -61,6 +64,7 @@ void curva_direita()
   digitalWrite (motor_e_t, LOW);
 }
 
+//Velocidade Minima
 void minimo()
 {
   analogWrite (vele, minimo1);
@@ -72,7 +76,7 @@ void minimo()
   digitalWrite (motor_e_t, LOW);
 }
 
-
+//Freio
 void parar()
 {
   
@@ -97,7 +101,8 @@ void setup() {
 }
 void loop() {
   obstaculo = digitalRead(sensor_c);
-  while(obstaculo == HIGH)
+  
+  while(obstaculo == HIGH) //Linha Reta
   {
     obstaculo = digitalRead(sensor_c);
     
@@ -113,7 +118,7 @@ void loop() {
         
     Serial.println("Procurando..");
     
-    if(digitalRead(sensor_d) == HIGH)
+    if(digitalRead(sensor_d) == HIGH) //Curva Direta
     {
       while(digitalRead(sensor_c) != HIGH)
       {
@@ -122,7 +127,7 @@ void loop() {
       }
       break;
     }
-    else if(digitalRead(sensor_e) == HIGH)
+    else if(digitalRead(sensor_e) == HIGH) //Curva Esquerda
     {
       while(digitalRead(sensor_c) != HIGH)
       {
@@ -131,7 +136,7 @@ void loop() {
       }
       break;
     }
-    else if(digitalRead(sensor_c) == HIGH)
+    else if(digitalRead(sensor_c) == HIGH) //Achou a linha
     {
       break;
     }
