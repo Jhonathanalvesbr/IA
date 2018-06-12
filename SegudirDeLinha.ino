@@ -25,13 +25,9 @@ int sensor_d = A2;
 int sensor_e = A1;
 int sensor_c = A0;
 
-
-bool obstaculo = HIGH;
-
 //Segue linha reta
 void reto()
 {
-  
   analogWrite (vele, reto1);
   analogWrite (veld, reto2);
   
@@ -79,7 +75,6 @@ void minimo()
 //Freio
 void parar()
 {
-  
   digitalWrite (motor_d_f, HIGH);
   digitalWrite (motor_d_t, HIGH);
   digitalWrite (motor_e_f, HIGH);
@@ -100,12 +95,9 @@ void setup() {
   
 }
 void loop() {
-  obstaculo = digitalRead(sensor_c);
   
-  while(obstaculo == HIGH) //Linha Reta
+  while(digitalRead(sensor_c) == HIGH) //Linha Reta
   {
-    obstaculo = digitalRead(sensor_c);
-    
     reto();
     
     Serial.println("Em linha");
@@ -141,9 +133,4 @@ void loop() {
       break;
     }
   }
-
 }
-
-
-
-
