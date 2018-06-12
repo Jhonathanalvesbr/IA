@@ -102,7 +102,8 @@ void loop()
   while(digitalRead(sensor_c) == HIGH) //Linha Reta
   {
     reto();
-    
+    if(digitalRead(sensor_d) == HIGH || digitalRead(sensor_e) == HIGH)
+      {break;}
     Serial.println("Em linha");
   }
   
