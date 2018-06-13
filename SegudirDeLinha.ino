@@ -9,14 +9,14 @@ int vele = 11;
 int veld = 6; 
 
 //Velocidades
-int reto1 = 150;
-int reto2 = 150; 
-int curva_direita1 = 150;
-int curva_direita2 = 150; 
-int curva_esquerda1 = 150;
-int curva_esquerda2 = 150; 
-int minimo1 = 150;
-int minimo2 = 150; 
+int reto1 = 255;
+int reto2 = 255; 
+int curva_direita1 = 200;
+int curva_direita2 = 200; 
+int curva_esquerda1 = 200;
+int curva_esquerda2 = 200; 
+int minimo1 = 255;
+int minimo2 = 255; 
 
 //Declara Sensores
 int sensor_d = A2;
@@ -99,39 +99,39 @@ void setup()
 
 void loop() 
 {
-  while(digitalRead(sensor_c) == HIGH) //Linha Reta
+  while(digitalRead(sensor_c) == LOW) //Linha Reta
   {
     reto();
-    if(digitalRead(sensor_d) == HIGH || digitalRead(sensor_e) == HIGH)
-      {break;}
+    //if(digitalRead(sensor_d) == LOW || digitalRead(sensor_e) == LOW)
+    //  {break;}
     Serial.println("Em linha");
   }
   
-  while(obstaculo == LOW) //Procura Direta , Esquerda
+  while(1) //Procura Direta , Esquerda
   {
     minimo();
         
     Serial.println("Procurando..");
     
-    if(digitalRead(sensor_d) == HIGH) //Curva Direta
+    if(digitalRead(sensor_d) == LOW) //Curva Direta
     {
-      while(digitalRead(sensor_c) != HIGH)
+      while(digitalRead(sensor_c) != LOW)
       {
         curva_direita();
         Serial.println("Direita");
       }
       break;
     }
-    else if(digitalRead(sensor_e) == HIGH) //Curva Esquerda
+    if(digitalRead(sensor_e) == LOW) //Curva Esquerda
     {
-      while(digitalRead(sensor_c) != HIGH)
+      while(digitalRead(sensor_c) != LOW)
       {
         curva_esquerda();
         Serial.println("Esquerda");
       }
       break;
     }
-    else if(digitalRead(sensor_c) == HIGH) //Achou a linha
+    if(digitalRead(sensor_c) == LOW) //Achou a linha
     {
       break;
     }
